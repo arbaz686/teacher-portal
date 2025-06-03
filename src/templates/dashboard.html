@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Portal - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Add Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="top-nav">
+            <h2 class="logo">tailwebs.</h2>
+            <div class="nav-links">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="/logout" class="nav-link">Logout</a>
+            </div>
+        </nav>
+        
+        <div class="content">
+            <button onclick="openAddModal()" class="add-btn">Add</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Subject</th>
+                        <th>Mark</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsList">
+                    <!-- Student rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Add this modal HTML -->
+        <div id="studentModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 id="modalTitle">Add Student</h2>
+                <form id="studentForm">
+                    <input type="hidden" id="studentId">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" id="name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-book input-icon"></i>
+                            <input type="text" id="subject" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Mark</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-graduation-cap input-icon"></i>
+                            <input type="number" id="marks" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Add these helper functions before including main.js
+    function handleEdit(studentId) {
+        // Close any open dropdowns
+        closeAllDropdowns();
+        // Call edit function
+        editStudent(studentId);
+    }
+
+    function handleDelete(studentId) {
+        // Close any open dropdowns
+        closeAllDropdowns();
+        // Call delete function
+        deleteStudent(studentId);
+    }
+
+    function closeAllDropdowns() {
+        const dropdowns = document.getElementsByClassName("dropdown-content");
+        Array.from(dropdowns).forEach(dropdown => {
+            dropdown.classList.remove('show');
+        });
+    }
+    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
